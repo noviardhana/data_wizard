@@ -1,6 +1,8 @@
 # data_wizards
 Final Project Bootcamp Academy Batch 31 - Team 9
 
+## EDA
+
 ![messageImage_1681052869138](https://user-images.githubusercontent.com/123848730/230780972-d9b43af5-c327-4e37-9630-8aa41dea72c2.jpg)
 
 Insight:
@@ -31,3 +33,34 @@ Selama Great Recession di Florida (State dengan default terbanyak), pinjaman yan
 ![messageImage_1681053433786](https://user-images.githubusercontent.com/123848730/230781294-c5aa7caa-d139-42cd-992f-a45694dfae6b.jpg)
 
 Selama Great Recession di Wyoming (State dengan default paling sedikit), pinjaman yang default didominasi oleh: Constraction (8 pinjaman), Retail Trade (7 pinjaman), Wholesale Trade (3 pinjaman), Manufacturing (2 pinjaman), dan other no pub (2 pinjaman).
+
+## Data Pre-processing
+
+Intinya ini mau dibersihin datanya. Caranya ya bertahap:
+
+1. Pertama melakukan pembersihan data, sesuai yang diajarkan di kelas, seperti:
+- Handle missing values
+- Handle duplicated data
+- Handle outliers
+- Feature transformation
+- Feature encoding
+- Handle class imbalance
+
+2. Kedua mengecek feature yang ada sekarang, lalu lakukan:
+- Feature selection (membuang feature yang kurang relevan atau redundan)
+- Feature extraction (membuat feature baru dari feature yang sudah ada)
+- Tuliskan minimal 4 feature tambahan (selain yang sudah tersedia di dataset) yang mungkin akan sangat membantu membuat performansi model semakin bagus.
+
+Hasil Handle missing values dan duplicated data relatif aman, karena data yang hilang tinggal didrop aja. Terus 1 kolom yang datanya hampir 80% juga dihapus semua kolomnya. Tidak ada data duplikat juga disini.
+
+Handle outliers menggunakan z-scoring dengan meng-keep data yang memiliki z-score dibawah 3. Hasilnya relatif baik untuk data numerik. Hasilnya yang dibuang akibat outlier sekitar 4%. Selanjutnya data finance seperti `DisbursementGross`, `BalanceGross`, `ChgOffPrinGr`, `GrAppv`, `SBA_Appv` dan data numerik lainnya seperti `ApprovalFY`, `Term`, `NoEmp`, `CreateJob`, `RetainedJob` akan ditransformasi logaritmik. Tujuan dari transformasi ini untuk merubah bentuk distribusi mendekati normal.
+
+Feature encoding yang dilakukan yaitu:
+- NewExist --> create 'New Business: 1/0
+- FranchiseCode --> create 'IsFrenchise'
+- RevLineCr --> boolean 0/1
+- 'LowDoc'--> boolean 0/1
+- 'MIS_Status' --> create 'Default'
+- NAICS --> Industry
+
+Feature extraction dan Feature selection dapat dilihat di codingnya aja yaa hehe
